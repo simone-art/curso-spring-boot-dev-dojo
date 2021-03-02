@@ -14,6 +14,8 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 //Anotação que define o pacote onde está seu endpoint
 @ComponentScan(basePackages = "br.com.devdojo.awesome.endpoint")
+
+//@SpringBootApplication
 public class ApplicationStart {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationStart.class, args);
