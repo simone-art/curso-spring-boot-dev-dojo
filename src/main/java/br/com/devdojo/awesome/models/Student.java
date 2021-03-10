@@ -2,6 +2,7 @@ package br.com.devdojo.awesome.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.util.Arrays.asList;
 
@@ -34,7 +35,7 @@ public class Student {
 
 
     private static void studentRepository(){
-        studentList = new ArrayList<>(asList(new Student("Deku"), new Student("Todoroki")));
+        studentList = new ArrayList<>(asList(new Student(1, "Deku"), new Student(2, "Todoroki")));
     }
 
     public int getId() {
@@ -51,5 +52,18 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
