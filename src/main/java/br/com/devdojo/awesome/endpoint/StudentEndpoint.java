@@ -3,10 +3,9 @@ package br.com.devdojo.awesome.endpoint;
 import br.com.devdojo.awesome.models.Student;
 import br.com.devdojo.awesome.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,15 +19,21 @@ import static java.util.Arrays.asList;
 
 
 @RestController
-@RequestMapping("student")
+@RequestMapping("students")
 public class StudentEndpoint {
 
     @Autowired
     private DateUtil dateUtil;
 
-    @RequestMapping(method = RequestMethod.GET, path = "/list")
-    public List<Student> listAll() {
-        System.out.println("-----------" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return asList(new Student("Deku"), new Student("Todoroki"));
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> listAll() {
+        //System.out.println("-----------" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return new ResponseEntity<>(Student.studentList, HttpStatus.OK);
     }
+
+//    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+//    public ResponseEntity<> getStudentById(@PathVariable("id") int id){
+//
+//    }
+
 }
