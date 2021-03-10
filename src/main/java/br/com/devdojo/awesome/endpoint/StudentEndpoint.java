@@ -1,5 +1,6 @@
 package br.com.devdojo.awesome.endpoint;
 
+import br.com.devdojo.awesome.error.CustomErrorType;
 import br.com.devdojo.awesome.models.Student;
 import br.com.devdojo.awesome.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,16 @@ public class StudentEndpoint {
         return new ResponseEntity<>(Student.studentList, HttpStatus.OK);
     }
 
-//    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-//    public ResponseEntity<> getStudentById(@PathVariable("id") int id){
-//
-//    }
+    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+    public ResponseEntity<?> getStudentById(@PathVariable("id") int id){
+        Student student = new Student();
+        student.setId(id);
+        int index = Student.studentList.indexOf(student);
+        if(index == -1)
+            return new ResponseEntity<>(new CustomErrorType("Student not found"), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Student.studentList.get(index), HttpStatus.OK);
+        }
 
-}
+    }
+
+
