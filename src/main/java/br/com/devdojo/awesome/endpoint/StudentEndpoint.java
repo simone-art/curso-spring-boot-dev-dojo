@@ -1,6 +1,7 @@
 package br.com.devdojo.awesome.endpoint;
 
 import br.com.devdojo.awesome.error.CustomErrorType;
+import br.com.devdojo.awesome.error.ResourceNotFoundException;
 import br.com.devdojo.awesome.models.Student;
 import br.com.devdojo.awesome.repository.StudentRepository;
 import br.com.devdojo.awesome.util.DateUtil;
@@ -28,7 +29,7 @@ public class StudentEndpoint {
     private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentEndpoint(StudentRepository studentRepository){
+    public StudentEndpoint(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
@@ -42,12 +43,12 @@ public class StudentEndpoint {
     //@RequestMapping(method = RequestMethod.GET, path = "/{id}")
     //@PathVariable("id") int id, pega atributos por separado
     @GetMapping("/{id}")
-    public ResponseEntity<?> getStudentById(@PathVariable("id") Long id){
-        Student student = studentRepository.findById(id).get();
-        if(student == null)
-            return new ResponseEntity<>(new CustomErrorType("Student not found"), HttpStatus.NOT_FOUND);
-            return new ResponseEntity<>(student, HttpStatus.OK);
-        }
+    public ResponseEntity<?> getStudentById(@PathVariable("id") Long id) {
+        Student student = studentRepository.findById(id).orElse(null);
+        if (student == null)
+            throw new ResourceNotFoundException("Student not found for ID: " + id);
+        return new ResponseEntity<>(student, HttpStatus.OK);
+    }
 
     //Método que busca pelo nome
     //Tem que ser colocado o path pra ser executado com sucesso no Postman
