@@ -44,9 +44,10 @@ public class StudentEndpoint {
     //@PathVariable("id") int id, pega atributos por separado
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable("id") Long id) {
+        verifyIfStudentExists(id);
         Student student = studentRepository.findById(id).orElse(null);
-        if (student == null)
-            throw new ResourceNotFoundException("Student not found for ID: " + id);
+        //if (student == null)
+            //throw new ResourceNotFoundException("Student not found for ID: " + id);
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
@@ -69,6 +70,7 @@ public class StudentEndpoint {
     //@RequestMapping(method = RequestMethod.DELETE)
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
+        verifyIfStudentExists(id);
        studentRepository.deleteById(id);
         System.out.println("Dado deletado com sucesso");
         return new ResponseEntity<>(HttpStatus.OK);
@@ -81,10 +83,16 @@ public class StudentEndpoint {
     //Do contrário, sem o id, ele saba que deve atualizar um objeto
     @PutMapping
     public ResponseEntity<?> update(@RequestBody Student student){
+        verifyIfStudentExists(student.getId());
         studentRepository.save(student);
         System.out.println("Dado atualizado com sucesso");
         return new ResponseEntity<>(HttpStatus.OK);
 
+    }
+
+    private void verifyIfStudentExists(Long id){
+        if (studentRepository.findById(id) == null)
+            throw new ResourceNotFoundException("Student not found for ID: " + id);
     }
 
     }
