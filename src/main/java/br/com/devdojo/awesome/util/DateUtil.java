@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 //Tem que ser colocado o bean @Component porque gera um erro na hora de buildar
+//@Component, diz para a classe que vai ser escaneada pelo @ComponentScan
 @Component
 public class DateUtil {
 
