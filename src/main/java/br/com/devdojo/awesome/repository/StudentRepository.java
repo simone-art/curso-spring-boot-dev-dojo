@@ -9,7 +9,7 @@ import java.util.List;
 //CrudRepository é uma interfase
 
 public interface StudentRepository extends CrudRepository<Student, Long> {
-    List<Student> findByName(String name);
+    List<Student> findByNameIgnoreCaseContaining(String name);
     //Student findById(Long id);
 
 

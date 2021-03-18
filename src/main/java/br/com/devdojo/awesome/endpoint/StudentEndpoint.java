@@ -49,6 +49,14 @@ public class StudentEndpoint {
             return new ResponseEntity<>(student, HttpStatus.OK);
         }
 
+    //Método que busca pelo nome
+    //Tem que ser colocado o path pra ser executado com sucesso no Postman
+    @GetMapping(path = "/findByName/{name}")
+    public ResponseEntity<?> findStudentsByName(@PathVariable String name){
+        return new ResponseEntity<>(studentRepository.findByNameIgnoreCaseContaining(name), HttpStatus.OK);
+
+    }
+
         //Método pra enviar id e nome de um novo estudante
         //Dentro do @RequestBody tem que vir o objeto estudante
         //@RequestMapping(method = RequestMethod.POST)
