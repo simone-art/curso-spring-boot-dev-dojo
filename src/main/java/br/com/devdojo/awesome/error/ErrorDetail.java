@@ -6,6 +6,8 @@ public class ErrorDetail {
     private String detail;
     private long timestamp;
     private String developerMessage;
+    private String field;
+    private String fieldMessage;
 
     public String getTitle() {
         return title;
@@ -45,5 +47,21 @@ public class ErrorDetail {
 
     public void setDeveloperMessage(String developerMessage) {
         this.developerMessage = developerMessage;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    public String getFieldMessage() {
+        return fieldMessage;
+    }
+
+    public void setFieldMessage(String fieldMessage) {
+        this.fieldMessage = fieldMessage;
     }
 }

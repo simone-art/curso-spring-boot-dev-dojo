@@ -2,6 +2,8 @@ package br.com.devdojo.awesome.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -15,8 +17,12 @@ public class Student extends AbstractEntity {
 
    @Column
    @NotNull
-   @NotEmpty(message = "O nome não pode ser vazio")
+   @NotBlank(message = "O nome não pode ser vazio")
     private String name;
+
+   @NotBlank(message = "O email não pode ser vazio")
+   @Email
+   private String email;
 
     public String getName() {
         return name;
