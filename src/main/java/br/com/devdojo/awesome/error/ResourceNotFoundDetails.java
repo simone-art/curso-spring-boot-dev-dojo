@@ -1,40 +1,6 @@
 package br.com.devdojo.awesome.error;
 
-public class ResourceNotFoundDetails {
-
-    private String title;
-    private int status;
-    private String detail;
-    private long timestamp;
-    private String developerMessage;
-
-    //Ao fazer o constructor privado não poderá ser usado os setters
-    private ResourceNotFoundDetails(){
-
-    }
-
-
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public String getDeveloperMessage() {
-        return developerMessage;
-    }
+public class ResourceNotFoundDetails extends ErrorDetail{
 
     public static final class Builder {
         private String title;
@@ -45,7 +11,6 @@ public class ResourceNotFoundDetails {
 
         private Builder() {
         }
-
 
         public static Builder newBuilder() {
             return new Builder();
@@ -78,11 +43,11 @@ public class ResourceNotFoundDetails {
 
         public ResourceNotFoundDetails build() {
             ResourceNotFoundDetails resourceNotFoundDetails = new ResourceNotFoundDetails();
-            resourceNotFoundDetails.developerMessage = this.developerMessage;
-            resourceNotFoundDetails.title = this.title;
-            resourceNotFoundDetails.status = this.status;
-            resourceNotFoundDetails.timestamp = this.timestamp;
-            resourceNotFoundDetails.detail = this.detail;
+            resourceNotFoundDetails.setDeveloperMessage(developerMessage);
+            resourceNotFoundDetails.setTitle(title);
+            resourceNotFoundDetails.setStatus(status);
+            resourceNotFoundDetails.setTimestamp(timestamp);
+            resourceNotFoundDetails.setDetail(detail);
             return resourceNotFoundDetails;
         }
     }
