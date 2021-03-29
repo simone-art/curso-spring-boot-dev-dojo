@@ -44,10 +44,10 @@ public class StudentEndpoint {
     //@PathVariable("id") int id, pega atributos por separado
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable("id") Long id) {
-        verifyIfStudentExists(id);
+        //verifyIfStudentExists(id);
         Student student = studentRepository.findById(id).orElse(null);
-        //if (student == null)
-            //throw new ResourceNotFoundException("Student not found for ID: " + id);
+        if (student == null)
+            throw new ResourceNotFoundException("Student not found for ID: " + id);
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
