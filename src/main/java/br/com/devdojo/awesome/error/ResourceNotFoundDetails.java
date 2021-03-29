@@ -14,6 +14,8 @@ public class ResourceNotFoundDetails {
     }
 
 
+
+
     public String getTitle() {
         return title;
     }
@@ -43,6 +45,7 @@ public class ResourceNotFoundDetails {
 
         private Builder() {
         }
+
 
         public static Builder newBuilder() {
             return new Builder();
