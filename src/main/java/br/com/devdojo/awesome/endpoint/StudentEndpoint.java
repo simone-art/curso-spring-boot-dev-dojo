@@ -7,10 +7,14 @@ import br.com.devdojo.awesome.repository.StudentRepository;
 import br.com.devdojo.awesome.util.DateUtil;
 import jdk.swing.interop.SwingInterOpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,9 +39,10 @@ public class StudentEndpoint {
 
     //@RequestMapping(method = RequestMethod.GET)
     @GetMapping
-    public ResponseEntity<?> listAll() {
+    //Este Pageable é do springframework
+    public ResponseEntity<?> listAll(Pageable pageable) {
         //System.out.println("-----------" + dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return new ResponseEntity<>(studentRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(studentRepository.findAll(pageable), HttpStatus.OK);
     }
 
     //@RequestMapping(method = RequestMethod.GET, path = "/{id}")
@@ -63,7 +68,8 @@ public class StudentEndpoint {
         //Dentro do @RequestBody tem que vir o objeto estudante
         //@RequestMapping(method = RequestMethod.POST)
          @PostMapping
-         public ResponseEntity<?> save(@RequestBody Student student){
+         //@Transactional(rollbackFor = Exception.class)
+         public ResponseEntity<?> save(@Valid @RequestBody Student student){
           return new ResponseEntity<>(studentRepository.save(student), HttpStatus.OK);
         }
      //Método pra eliminar um dado
@@ -90,9 +96,10 @@ public class StudentEndpoint {
 
     }
 
-    private void verifyIfStudentExists(Long id){
+    private void verifyIfStudentExists(Long id) {
         if (studentRepository.findById(id) == null)
             throw new ResourceNotFoundException("Student not found for ID: " + id);
+
     }
 
     }
